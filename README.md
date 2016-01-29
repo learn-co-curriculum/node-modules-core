@@ -118,7 +118,7 @@ It probably won't do anything. So we need to have if/else conditions in our code
 var platform = require('os').platform()
 
 if (platform == 'win32') {
-  var filePath = 'configurations\data\models\'
+  var filePath = 'configurations\\data\\models\\'
 } else { // assume platform is darwin or similar
   var filePath  = 'configurations/data/models/'
 }
