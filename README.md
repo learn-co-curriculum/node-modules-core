@@ -75,13 +75,17 @@ Here is the list of the core modules for v5.1:
 * [`events`](https://nodejs.org/api/events.html): Interface for asynchronous event-driven architecture (used by many other core modules)
 * [`fs`](https://nodejs.org/api/fs.html): File system I/O methods
 * [`http`](https://nodejs.org/api/http.html): Interface for HTTP servers and clients
-* [`net`]()
-* os
-* path
-* querystring
-* url
-* utils
+* [`net`](https://nodejs.org/api/net.html): Interface for networking which can be used to implement any protocol, not just HTTP (`http` uses `net`)
+* [`os`](https://nodejs.org/api/os.html): Basic operating-system utilities
+* [`path`](https://nodejs.org/api/path.html): Utilities for handling and transmitting file paths on various platforms.
+* [`querystring`](https://nodejs.org/api/querystring.html): Utilities for working with query strings (e.g., `?key1=value1&key2=value2` in a URL)
+* [`stream`](https://nodejs.org/api/stream.html): Abstract interface implemented by various objects.
+* [`url`](https://nodejs.org/api/url.html): Utilities for URL resolution and parsing.
+* [`util`](https://nodejs.org/api/util.html): Utilities which are mostly used by other core Node modules
 
+Are your head is about to explode from this list of core modules? Stop the panic. You don't need to remember all of them. Just know that they are out there when you have a task at hand which requires you to require that module (pun intended), e.g., `crypto` for hashing of the passwords.
+
+In the next section, we'll show you some examples of `fs`, `path`, and `url`.
 
 ## fs
 
