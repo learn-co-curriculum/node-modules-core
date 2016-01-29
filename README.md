@@ -89,15 +89,84 @@ In the next section, we'll show you some examples of `fs`, `path`, and `url`.
 
 ## fs
 
+You can read a file asynchronously with `fs.readFile` and write to a file with `fs.writeFile`, e.g.,
+
+```js
+var callback = function(error, data) {
+  console.log(data, error)
+}
+fs.readFile('data.json', 'utf8', callback)
+
+fs.writeFile('message.txt', 'Hello Node.js', function (error) {
+  console.log(error)
+})
+```
+
 ## path
+
+We all want to develop application that work across platform with minimal or no code modifications, because then we gain a broader user base and flexibility. Node work out of the box with Unix, Linux, Mac OS X and Windows systems.
+
+But what would happen if I run a code with a Unix-like path on a Windows machine?
+
+```js
+fs.readFile('configurations/data/models/user.json', 'utf8', callback)
+```
+
+It probably won't do anything. So we need to have if/else conditions in our code:
+
+```
+var platform = require('os').platform()
+
+if (platform == 'win32') {
+  filePath = 'configurations\data\models\'
+} else { // assume platform is darwin or similar
+  filePath  = 'configurations/data/models/'
+}
+fs.readFile(filePath + 'user.json', 'utf8', callback)
+```
+
+Why don't we refactor our example and use the `join()` interface from `path`? The method will take unlimited number of arguments and return a proper path where each argument is a separated by the right delimiter (`/` or `\` depending on the OS):
+
+```js
+var path = require('path')
+fs.readFile(path.join('configurations', 'data', 'models', user.json'), 'utf8', callback)
+```
+
 
 ## url
 
+URL strings can contain a lot of information for example the protocol name, domain name, port number, authentication info, path, query string, etc. Obviously, we don't want to parse this information manually. Creating your own module is also a not a great idea, because there's one in the core already!
+
+Consider this example:
+
+```js
+url.parse('https://nodejs.org/api/url.html#url_url_parsing')
+```
+
+The result of the expressions will be this:
+
+```
+{
+  protocol: 'https:',
+  slashes: true,
+  auth: null,
+  host: 'nodejs.org',
+  port: null,
+  hostname: 'nodejs.org',
+  hash: '#url_url_parsing',
+  search: null,
+  query: null,
+  pathname: '/api/url.html',
+  path: '/api/url.html',
+  href: 'https://nodejs.org/api/url.html#url_url_parsing' 
+}
+```
+
 ## Resources
 
-1. []()
-1. []()
-1. []()
+1. [Official documentation](https://nodejs.org/api/index.html)
+1. [Node.js Tutorial for Beginners - 8 - fs module video](https://www.youtube.com/watch?v=GdBgP71CSow)
+1. [Node GitHub repository](https://github.com/nodejs/node/tree/master/lib)
 
 
 ---
