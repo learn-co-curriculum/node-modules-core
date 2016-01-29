@@ -129,7 +129,7 @@ Why don't we refactor our example and use the `join()` interface from `path`? Th
 
 ```js
 var path = require('path')
-fs.readFile(path.join('configurations', 'data', 'models', user.json'), 'utf8', callback)
+fs.readFile(path.join('configurations', 'data', 'models', 'user.json'), 'utf8', callback)
 ```
 
 
