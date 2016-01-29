@@ -114,7 +114,7 @@ fs.readFile('configurations/data/models/user.json', 'utf8', callback)
 
 It probably won't do anything. So we need to have if/else conditions in our code:
 
-```
+```js
 var platform = require('os').platform()
 
 if (platform == 'win32') {
