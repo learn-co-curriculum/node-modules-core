@@ -13,7 +13,7 @@ This lesson will cover the usage of the core Node modules. Also, we'll list the 
 
 ## Core Modules
 
-As discussed previously, Node is a platform or an environment in which we build applications. You saw that modularized code is better and how you can write your own modules. With modules, developers from different team and different companies can share their code (what is called open-source community). This is great but how do you get the code? Imagine a simple thing like parsing a path, i.e., we have a string like `/home/user/azat/program.js` and we need to extract the extension, base, file name, etc.
+As discussed previously, Node is a platform or an environment in which we build applications. You saw that modularized code is better and how you can write your own modules. With modules, developers from different teams and different companies can share their code. This is great but how do you get the code? Imagine a simple thing like parsing a path, i.e., we have a string like `/home/user/azat/program.js` and we need to extract the extension, base, file name, etc.
 
 You would have to write a code which uses Regular Expressions like this:
 
@@ -52,7 +52,7 @@ var path = require('path')
 console.log(path.parse('/home/user/azat/program.js'))
 ```
 
-The variable name is arbitrary meaning you can name it anything, but the convention is to use camelCase of the module name. This is a silly example which majority of Node developers won't use (and a great way to have your pull request rejected!):
+The variable name is arbitrary, but the convention is to use camelCase of the module name. This is a silly example which the majority of Node developers won't use (and is a great way to have your pull request rejected!):
 
 ```js
 var banana = require('path')
@@ -65,11 +65,11 @@ Note: the code is a simplified version from the Node.js GitHub repository where 
 
 ## Main Core Modules
 
-There are a lot of core modules but not as many compare to other platforms/environments like Python. The philosophy of Node is to keep the core lean and thin. But because Node was build for networking (web app, clients and servers) with mind, the creators of Node bundled it with some great module. Really you can build your entire HTTP or IRC server with just core modules!
+There are a lot of core modules but not as many compare to other platforms/environments like Python. The philosophy of Node is to keep the core lean and thin. But because Node was build for networking (web app, clients and servers) with mind, the creators of Node bundled it with some great modules. Really you can build your entire HTTP or IRC server with just core modules!
 
 Here is the list of the core modules for v5.1:
 
-* [`assert`](https://nodejs.org/api/assert.html): A simple set of assertion test
+* [`assert`](https://nodejs.org/api/assert.html): A simple set of assertion tests
 * [`cluster`](https://nodejs.org/api/cluster.html): Interface to launch a cluster (multiple) of Node processes to increase performance 
 * [`crypto`](https://nodejs.org/api/crypto.html): Cryptographic functionality for OpenSSL, HMAC, etc.
 * [`events`](https://nodejs.org/api/events.html): Interface for asynchronous event-driven architecture (used by many other core modules)
@@ -83,7 +83,7 @@ Here is the list of the core modules for v5.1:
 * [`url`](https://nodejs.org/api/url.html): Utilities for URL resolution and parsing.
 * [`util`](https://nodejs.org/api/util.html): Utilities which are mostly used by other core Node modules
 
-Are your head is about to explode from this list of core modules? Stop the panic. You don't need to remember all of them. Just know that they are out there when you have a task at hand which requires you to require that module (pun intended), e.g., `crypto` for hashing of the passwords.
+Are your head is about to explode from this list of core modules? Don't panic! You don't need to remember all of them. Just know that they are out there when you have a task at hand which requires you to require that module (pun intended), e.g., `crypto` for hashing of the passwords.
 
 In the next section, we'll show you some examples of `fs`, `path`, and `url`.
 
@@ -104,7 +104,7 @@ fs.writeFile('message.txt', 'Hello Node.js', function (error) {
 
 ## path
 
-We all want to develop application that work across platform with minimal or no code modifications, because then we gain a broader user base and flexibility. Node work out of the box with Unix, Linux, Mac OS X and Windows systems.
+We all want to develop applications that work across platform with minimal or no code modifications, because then we gain a broader user base and flexibility. Node works out of the box with Unix, Linux, Mac OS X and Windows systems.
 
 But what would happen if I run a code with a Unix-like path on a Windows machine?
 
