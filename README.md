@@ -2,17 +2,6 @@
 
 ## Overview
 
-This lesson will cover the usage of the core Node modules. Also, we'll list the main core modules which will be useful during this course.
-
-## Objectives
-
-1. Provide a list of main core modules and their purpose
-1. Describe fs and its main methods
-1. Describe url and its main methods
-1. Describe path and path.join
-
-## Core Modules
-
 As discussed previously, Node is a platform or an environment in which we build applications. You saw that modularized code is better and how you can write your own modules. With modules, developers from different teams and different companies can share their code. This is great but how do you get the code? Imagine a simple thing like parsing a path, i.e., we have a string like `/home/user/azat/program.js` and we need to extract the extension, base, file name, etc.
 
 You would have to write a code which uses Regular Expressions like this:
@@ -42,9 +31,24 @@ posix.parse = function(pathString) {
 }
 ```
 
+Note: the code is a simplified version from the Node.js GitHub repository where core modules are located. The file is `path.js` in the `lib` folder, in case you want to see the real implementation.
+
 This code is only for Unix-like systems (Linux, Mac OS X, etc.) and for Windows you would have to write a different parser. Do you realize that every time you want to access a file you would need something like this? Probably you won't copy/paste the code, but have a module. If you need this module so often maybe it's a good idea to make it part of the system? That's why creators of Node, packaged this path parser and other utilities and libraries that are likely to be used in most Node projects together into the platform itself. These packaged modules called core modules.
 
-Even more so, more complex core modules like `net` depend on a simpler core modules like `path`. 
+Even more so, more complex core modules like `net` (networking module) depend on a simpler core modules like `path`. 
+
+This lesson will cover the usage of the core Node modules. Also, we'll list the main core modules which will be useful during this course.
+
+
+## Objectives
+
+1. Provide a list of main core modules and their purpose
+1. Describe fs and its main methods
+1. Describe url and its main methods
+1. Describe path and path.join
+
+## Using Core Modules
+
 You might wonder how someone would use a core module? Import it with `require()` by passing a name. You want to store the reference in a variable:
 
 ```js
@@ -60,8 +64,6 @@ console.log(banana.parse('/home/user/azat/program.js'))
 ```
 
 Let's cover the most important core modules.
-
-Note: the code is a simplified version from the Node.js GitHub repository where core modules are located. The file is `path.js` in the `lib` folder, in case you want to see the real implementation.
 
 ## Main Core Modules
 
@@ -92,15 +94,17 @@ In the next section, we'll show you some examples of `fs`, `path`, and `url`.
 You can read a file asynchronously with `fs.readFile` and write to a file with `fs.writeFile`, e.g.,
 
 ```js
-var callback = function(error, data) {
+var callback = function(error, data) { // error object (if any) and file content
   console.log(data, error)
 }
-fs.readFile('data.json', 'utf8', callback)
+fs.readFile('data.json', 'utf8', callback) // file name, encoding and the callback
 
-fs.writeFile('message.txt', 'Hello Node.js', function (error) {
+fs.writeFile('message.txt', 'Hello Node.js', function (error) { // file name, content and callback with error
   console.log(error)
 })
 ```
+
+More on `fs` is in Non-blocking I/O Unit lessons (we use its methods as examples!).
 
 ## path
 
@@ -112,26 +116,36 @@ But what would happen if I run a code with a Unix-like path on a Windows machine
 fs.readFile('configurations/data/models/user.json', 'utf8', callback)
 ```
 
-It probably won't do anything. So we need to have if/else conditions in our code:
+It probably won't do anything. So we import the `os` core module:
 
 ```js
-var platform = require('os').platform()
+var platform = require('os').platform() 
+```
 
+Then we need to have if/else conditions in our code to check the platform (`win32` for Windows):
+
+```
 if (platform == 'win32') {
   var filePath = 'configurations\\data\\models\\'
 } else { // assume platform is darwin or similar
   var filePath  = 'configurations/data/models/'
 }
+```
+
+And only now we can actually read the file:
+
+```
 fs.readFile(filePath + 'user.json', 'utf8', callback)
 ```
 
-Why don't we refactor our example and use the `join()` interface from `path`? The method will take unlimited number of arguments and return a proper path where each argument is a separated by the right delimiter (`/` or `\` depending on the OS):
+This is too much coding. We don't want to re-invent the wheel. Why don't we refactor our example and use the `join()` interface from `path`? It's more eloquent and compact. The `join` method will take unlimited number of arguments and return a proper path where each argument is a separated by the right delimiter (`/` or `\` depending on the OS):
 
 ```js
 var path = require('path')
 fs.readFile(path.join('configurations', 'data', 'models', 'user.json'), 'utf8', callback)
 ```
 
+The arguments to `join` are segments of the path, e.g., `configuration/data/models/user.json`.
 
 ## url
 
@@ -161,6 +175,8 @@ The result of the expressions will be this:
   href: 'https://nodejs.org/api/url.html#url_url_parsing' 
 }
 ```
+
+With `url` you can get only the information you need without the headaches of coming up with regular expressions which might or might not work in ALL possible scenarios. Again, why re-invent the wheel? ;)
 
 ## Resources
 
