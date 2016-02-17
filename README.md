@@ -35,7 +35,7 @@ Note: the code is a simplified version from the Node.js GitHub repository where 
 
 This code is only for Unix-like systems (Linux, Mac OS X, etc.) and for Windows you would have to write a different parser. Do you realize that every time you want to access a file you would need something like this? Probably you won't copy/paste the code, but have a module. If you need this module so often maybe it's a good idea to make it part of the system? That's why creators of Node, packaged this path parser and other utilities and libraries that are likely to be used in most Node projects together into the platform itself. These packaged modules called core modules.
 
-Even more so, more complex core modules like `net` (networking module) depend on a simpler core modules like `path`. 
+Even more so, more complex core modules like `net` (networking module for creating servers) depend on a simpler core modules like `path`. 
 
 This lesson will cover the usage of the core Node modules. Also, we'll list the main core modules which will be useful during this course.
 
@@ -49,7 +49,7 @@ This lesson will cover the usage of the core Node modules. Also, we'll list the 
 
 ## Using Core Modules
 
-You might wonder how someone would use a core module? Import it with `require()` by passing a name. You want to store the reference in a variable:
+You might wonder how someone would use a core module? Import it with `require()` by passing a name. You want to store the reference in a variable. In this example we're importing the `path` module:
 
 ```js
 var path = require('path')
@@ -97,20 +97,21 @@ You can read a file asynchronously with `fs.readFile` and write to a file with `
 var callback = function(error, data) { // error object (if any) and file content
   console.log(data, error)
 }
-fs.readFile('data.json', 'utf8', callback) // file name, encoding and the callback
+fs.readFile('data.json', 'utf8', callback) 
+// the parameters are: file name, encoding and the callback
 
-fs.writeFile('message.txt', 'Hello Node.js', function (error) { // file name, content and callback with error
+fs.writeFile('message.txt', 'Hello Node.js', function (error) { 
+  // the parameters are: file name, content and callback with error
   console.log(error)
 })
 ```
-
 More on `fs` is in Non-blocking I/O Unit lessons (we use its methods as examples!).
 
 ## path
 
 We all want to develop applications that work across platform with minimal or no code modifications, because then we gain a broader user base and flexibility. Node works out of the box with Unix, Linux, Mac OS X and Windows systems.
 
-But what would happen if I run a code with a Unix-like path on a Windows machine?
+But what would happen if we run code with a Unix-like path on a Windows machine?
 
 ```js
 fs.readFile('configurations/data/models/user.json', 'utf8', callback)
@@ -138,7 +139,7 @@ And only now we can actually read the file:
 fs.readFile(filePath + 'user.json', 'utf8', callback)
 ```
 
-This is too much coding. We don't want to re-invent the wheel. Why don't we refactor our example and use the `join()` interface from `path`? It's more eloquent and compact. The `join` method will take unlimited number of arguments and return a proper path where each argument is a separated by the right delimiter (`/` or `\` depending on the OS):
+This is getting long. We don't want to re-invent the wheel. Why don't we refactor our example and use the `join()` interface from `path`? It's more eloquent and compact. The `join` method will take unlimited number of arguments and return a proper path where each argument is a separated by the right delimiter (`/` or `\` depending on the OS):
 
 ```js
 var path = require('path')
